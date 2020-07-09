@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : Module
 {
-    private void Awake()
+    public override void Register()
     {
         TAccessor<Entity>.Instance.Add(this);
     }

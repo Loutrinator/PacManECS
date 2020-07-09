@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowTarget : MonoBehaviour
+public class FollowTarget : Module
 {
     public Entity target;
-    private void Awake()
+    public override void Register()
     {
         TAccessor<FollowTarget>.Instance.Add(this);
+        this.r
     }
 }

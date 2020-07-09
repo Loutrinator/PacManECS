@@ -7,9 +7,11 @@ public class FollowTargetUpdater : MonoBehaviour
     
     void Update()
     {
-        foreach (var module in TAccessor<FollowTarget>.Instance.Modules)
+        for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; i++)
         {
+            FollowTarget module = TAccessor<FollowTarget>.Instance.Modules[i];
             Vector3 dist = module.transform.position - module.target.transform.position;
+            var entity = TAccessor<Entity>.Instance.Get(module);
         }
     }
 }
