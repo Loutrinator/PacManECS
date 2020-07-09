@@ -1,4 +1,6 @@
-﻿namespace Modules {
+﻿using Accessor;
+
+namespace Modules {
     public enum EdibleType {
         Point,
         Fruit

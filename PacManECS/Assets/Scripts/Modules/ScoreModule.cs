@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Accessor;
+using UnityEngine;
 
 namespace Modules {
     public class ScoreModule : Module {
