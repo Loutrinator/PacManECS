@@ -1,18 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Accessor;
 using UnityEngine;
 
-public class ScoreModule : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+namespace Modules {
+    public class ScoreModule : Module {
+        public int score;
+        public override void Register() {
+            TAccessor<ScoreModule>.Instance.Add(this);
+        }
     }
 }
