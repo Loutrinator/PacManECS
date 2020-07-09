@@ -115,20 +115,20 @@ namespace Updater {
 
         void SetScared(FollowTarget follower)
         {
-            Debug.Log("SetScared for " + follower.name);
+            //Debug.Log("SetScared for " + follower.name);
             follower.mr.material = enemyScaredMaterial;
             follower.state = FollowTargetState.RunAway;
         }
         void SetIdle(FollowTarget follower)
         {
-            Debug.Log("SetIdle for " + follower.name);
+            //Debug.Log("SetIdle for " + follower.name);
             follower.mr.material = follower.color;
             follower.state = FollowTargetState.Idle;
         }
         
         void RunFromTarget(FollowTarget follower)
         {
-            Debug.Log("RunFromTarget for " + follower.name);
+            //Debug.Log("RunFromTarget for " + follower.name);
             Vector3 dir = follower.transform.position - follower.target.transform.position;
             Vector3 newPos = follower.transform.position + dir;
             follower.navAgent.SetDestination(newPos);

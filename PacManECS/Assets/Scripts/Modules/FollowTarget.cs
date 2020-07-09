@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Modules {
     public enum FollowTargetState{Idle,Patrolling,Chasing,RunAway}
-    public class FollowTarget : Module
+    public class FollowTarget : ITarget
     {
         public Entity target;
         public NavMeshAgent navAgent;
