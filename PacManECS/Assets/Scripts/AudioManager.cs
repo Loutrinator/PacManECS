@@ -56,6 +56,8 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayFruit()
     {
+        StopEnemy();
+        StopChasing();
         FruitAudioSource.Play();
     }
     public void StopFruit()

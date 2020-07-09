@@ -10,14 +10,15 @@ namespace Updater {
     {
         public float targetDetectionDistance = 3f;
         public float destinationDetectionPrecision = 1f;
+        public Material enemyScaredMaterial;
         public float minX = -10f;
         public float maxX = 10f;
         public float minY = 10f;
         public float maxY = -20f;
-        
+
         public override void DoUpdate()
         {
-            if (GameManager.Instance.GameStarted)
+            if (GameManager.Instance.GameIsRunning)
             {
                 for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
                 {
@@ -40,7 +41,18 @@ namespace Updater {
                             CheckKillPacMan(follower);
                             break;
                         case FollowTargetState.RunAway :
+                            RunFromTarget(follower);
+                            
                             break;
+                    }
+
+                    if (GameManager.Instance.isFruitActive)
+                    {
+                        if(follower.state != FollowTargetState.RunAway) SetScared(follower);
+                    }
+                    else
+                    {
+                        if(follower.state == FollowTargetState.RunAway) SetIdle(follower);
                     }
                 }
             }
@@ -78,7 +90,7 @@ namespace Updater {
         }
         void SetRandomDestination(FollowTarget follower)
         {
-            Debug.Log("SetRandomDestination");
+            //Debug.Log("SetRandomDestination");
             
             float x = Random.Range(minX, maxX);
             float y = Random.Range(minY, maxY);
@@ -87,19 +99,42 @@ namespace Updater {
             follower.navAgent.SetDestination(d);
             follower.navAgent.isStopped = false;
             
-            Debug.Log("d " + d + " destination " + follower.navAgent.destination);
+            //Debug.Log("d " + d + " destination " + follower.navAgent.destination);
         }
         void SetTargetAsDestination(FollowTarget follower)
         {
-            Debug.Log("SetTargetAsDestination");
+            //Debug.Log("SetTargetAsDestination");
             follower.navAgent.SetDestination(follower.target.transform.position);
             follower.navAgent.isStopped = false;
-            Debug.Log("FOLLOWING PLAYER");
+            //Debug.Log("FOLLOWING PLAYER");
         }
         void RefreshTargetDestination(FollowTarget follower)
         {
             follower.navAgent.SetDestination(follower.target.transform.position);
         }
+
+        void SetScared(FollowTarget follower)
+        {
+            //Debug.Log("SetScared for " + follower.name);
+            follower.mr.material = enemyScaredMaterial;
+            follower.state = FollowTargetState.RunAway;
+        }
+        void SetIdle(FollowTarget follower)
+        {
+            //Debug.Log("SetIdle for " + follower.name);
+            follower.mr.material = follower.color;
+            follower.state = FollowTargetState.Idle;
+        }
+        
+        void RunFromTarget(FollowTarget follower)
+        {
+            //Debug.Log("RunFromTarget for " + follower.name);
+            Vector3 dir = follower.transform.position - follower.target.transform.position;
+            Vector3 newPos = follower.transform.position + dir;
+            follower.navAgent.SetDestination(newPos);
+        }
+        
+        
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
