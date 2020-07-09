@@ -8,6 +8,5 @@ public class FollowTarget : Module
     public override void Register()
     {
         TAccessor<FollowTarget>.Instance.Add(this);
-        this.r
     }
 }
