@@ -7,11 +7,19 @@ public class FollowTargetUpdater : MonoBehaviour
     
     void Update()
     {
-        for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; i++)
+        for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
         {
-            FollowTarget module = TAccessor<FollowTarget>.Instance.Modules[i];
-            Vector3 dist = module.transform.position - module.target.transform.position;
-            var entity = TAccessor<Entity>.Instance.Get(module);
+            Debug.Log("Follow Target number " + i);
+            FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+            if (follower.target != null)
+            {
+                follower.navAgent.SetDestination(follower.target.transform.position);
+                follower.navAgent.isStopped = false;
+            }
+            else
+            {
+                follower.navAgent.isStopped = true;
+            }
         }
     }
 }
