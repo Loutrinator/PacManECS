@@ -10,9 +10,14 @@ public class AudioManager : MonoBehaviour
     {
         get
         {
-            if (_instance == null) {
-                _instance = new GameObject().AddComponent<AudioManager>();
-                _instance.name = "AudioManager";
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<AudioManager>();
+                if (_instance == null) {
+                
+                    _instance = new GameObject().AddComponent<AudioManager>();
+                    _instance.name = "AudioManager";
+                }
             }
             return _instance;
         }

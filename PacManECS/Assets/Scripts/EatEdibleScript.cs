@@ -10,6 +10,7 @@ public class EatEdibleScript : MonoBehaviour
                 scoreModule.score += 500;
                 break;
             case EdibleType.Point:
+                AudioManager.Instance.PlayEating();
                 scoreModule.score += 100;
                 break;
         }
