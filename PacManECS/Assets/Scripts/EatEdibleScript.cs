@@ -1,10 +1,10 @@
-﻿using Modules;
+﻿using Accessor;
+using Modules;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class EatEdibleScript : MonoBehaviour
 {
-    public void EatEdible(ScoreModule scoreModule, EdibleModule edible) {
+    public static void EatEdible(ScoreModule scoreModule, EdibleModule edible) {
         switch (edible.edibleType) {
             case EdibleType.Fruit:
                 scoreModule.score += 500;
@@ -13,5 +13,7 @@ public class EatEdibleScript : MonoBehaviour
                 scoreModule.score += 100;
                 break;
         }
+        TAccessor<EdibleModule>.Instance.Remove(edible);
+        Destroy(edible.gameObject);
     }
 }

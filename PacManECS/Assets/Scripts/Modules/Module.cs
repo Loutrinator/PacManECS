@@ -5,7 +5,7 @@ namespace Modules {
     {
         public abstract void Register();
 
-        public void Awake()
+        public virtual void Awake()
         {
             Register();
         }
