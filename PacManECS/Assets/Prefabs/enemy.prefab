@@ -127,9 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   navAgent: {fileID: 7149738022801396468}
-  isChasing: 0
-  chasingTarget: 0
-  chasingPosition: {x: 0, y: 0, z: 0}
+  state: 0
+  color: {fileID: 0}
 --- !u!195 &7149738022801396468
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class EatEdibleScript : MonoBehaviour
         switch (edible.edibleType) {
             case EdibleType.Fruit:
                 scoreModule.score += 500;
+                GameManager.Instance.ActivateFruitMode();
                 break;
             case EdibleType.Point:
                 AudioManager.Instance.PlayEating();

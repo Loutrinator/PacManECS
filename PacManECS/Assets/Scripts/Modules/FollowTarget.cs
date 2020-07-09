@@ -8,7 +8,9 @@ namespace Modules {
     {
         public Entity target;
         public NavMeshAgent navAgent;
+        public MeshRenderer mr;
         public FollowTargetState state = FollowTargetState.Chasing;
+        public Material color;
         
         public override void Register()
         {
@@ -21,6 +23,7 @@ namespace Modules {
             if (navAgent == null)
             {
                 navAgent = GetComponent<NavMeshAgent>();
+                mr = GetComponent<MeshRenderer>();
             }
         }
     }
