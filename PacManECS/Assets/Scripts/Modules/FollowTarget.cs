@@ -11,8 +11,9 @@ namespace Modules {
             TAccessor<FollowTarget>.Instance.Add(this);
         }
 
-        public void Start()
+        public override void Awake()
         {
+            base.Awake();
             if (navAgent == null)
             {
                 navAgent = GetComponent<NavMeshAgent>();

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Accessor;
-using Modules;
-using UnityEngine;
+﻿using Accessor;
 
-public class Entity : Module
-{
-    public override void Register()
+namespace Modules {
+    public class Entity : Module
     {
-        TAccessor<Entity>.Instance.Add(this);
+        public override void Register()
+        {
+            TAccessor<Entity>.Instance.Add(this);
+        }
     }
 }
