@@ -26,14 +26,16 @@ namespace Updater {
                 {
                     case FollowTargetState.Idle:
                         SetRandomDestination(follower);
+                        AudioManager.Instance.PlayEnemy();
                         follower.state = FollowTargetState.Patrolling;
                         break;
                     case FollowTargetState.Patrolling :
-                        checkDistanceToDestination(follower);
-                        checkDistanceToTarget(follower);
+                        CheckDistanceToDestination(follower);
+                        CheckDistanceToTarget(follower);
                         break;
                     case FollowTargetState.Chasing :
                         RefreshTargetDestination(follower);
+                        CheckKillPacMan(follower);
                         break;
                     case FollowTargetState.RunAway :
                         break;
@@ -41,25 +43,33 @@ namespace Updater {
             }
         }
 
-        void checkDistanceToDestination(FollowTarget follower)
+        void CheckDistanceToDestination(FollowTarget follower)
         {
-            float distanceToPacMan =
-                (follower.transform.position - follower.navAgent.destination).magnitude;
+            float distanceToPacMan = (follower.transform.position - follower.navAgent.destination).magnitude;
             if (distanceToPacMan <= destinationDetectionPrecision )
             {
                 SetRandomDestination(follower);
             }
         }
-        void checkDistanceToTarget(FollowTarget follower)
+        void CheckDistanceToTarget(FollowTarget follower)
         {
-            float distanceToPacMan =
-                (follower.transform.position - follower.target.transform.position).magnitude;
-            Debug.Log("distanceToPacMan " + distanceToPacMan);
-            if (distanceToPacMan <=
-                targetDetectionDistance)
+            float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
+            //Debug.Log("distanceToPacMan " + distanceToPacMan);
+            if (distanceToPacMan <= targetDetectionDistance)
             {
                 SetTargetAsDestination(follower);
+                AudioManager.Instance.StopEnemy();
+                AudioManager.Instance.PlayChasing();
                 follower.state = FollowTargetState.Chasing;
+            }
+        }
+        void CheckKillPacMan(FollowTarget follower)
+        {
+            float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
+            if (distanceToPacMan <= destinationDetectionPrecision)
+            {
+                TargetEdibleModule PacPac = TAccessor<TargetEdibleModule>.Instance.Get(follower.target);
+                KillPlayerScript.KillPlayer(PacPac);
             }
         }
         void SetRandomDestination(FollowTarget follower)
