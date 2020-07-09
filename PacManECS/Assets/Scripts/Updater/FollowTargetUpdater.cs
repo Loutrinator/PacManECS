@@ -41,6 +41,8 @@ namespace Updater {
                             CheckKillPacMan(follower);
                             break;
                         case FollowTargetState.RunAway :
+                            RunFromTarget(follower);
+                            
                             break;
                     }
 
@@ -56,7 +58,7 @@ namespace Updater {
             }
             
         }
-        
+
         void CheckDistanceToDestination(FollowTarget follower)
         {
             float distanceToPacMan = (follower.transform.position - follower.navAgent.destination).magnitude;
@@ -88,7 +90,7 @@ namespace Updater {
         }
         void SetRandomDestination(FollowTarget follower)
         {
-            Debug.Log("SetRandomDestination");
+            //Debug.Log("SetRandomDestination");
             
             float x = Random.Range(minX, maxX);
             float y = Random.Range(minY, maxY);
@@ -97,14 +99,14 @@ namespace Updater {
             follower.navAgent.SetDestination(d);
             follower.navAgent.isStopped = false;
             
-            Debug.Log("d " + d + " destination " + follower.navAgent.destination);
+            //Debug.Log("d " + d + " destination " + follower.navAgent.destination);
         }
         void SetTargetAsDestination(FollowTarget follower)
         {
-            Debug.Log("SetTargetAsDestination");
+            //Debug.Log("SetTargetAsDestination");
             follower.navAgent.SetDestination(follower.target.transform.position);
             follower.navAgent.isStopped = false;
-            Debug.Log("FOLLOWING PLAYER");
+            //Debug.Log("FOLLOWING PLAYER");
         }
         void RefreshTargetDestination(FollowTarget follower)
         {
@@ -124,6 +126,13 @@ namespace Updater {
             follower.state = FollowTargetState.Idle;
         }
         
+        void RunFromTarget(FollowTarget follower)
+        {
+            Debug.Log("RunFromTarget for " + follower.name);
+            Vector3 dir = follower.transform.position - follower.target.transform.position;
+            Vector3 newPos = follower.transform.position + dir;
+            follower.navAgent.SetDestination(newPos);
+        }
         
         
         void OnDrawGizmos()
