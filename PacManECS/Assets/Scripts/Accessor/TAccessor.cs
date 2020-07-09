@@ -6,7 +6,6 @@ using UnityEngine;
 public class TAccessor<Type>  where Type : Module 
 {
     private static TAccessor<Type> _instance;
-
     public static TAccessor<Type> Instance
     {
         get
@@ -17,6 +16,7 @@ public class TAccessor<Type>  where Type : Module
             return _instance;
         }
     }
+    
     private List<Type> _modules;
 
     public List<Type> Modules => _modules;
@@ -24,6 +24,10 @@ public class TAccessor<Type>  where Type : Module
     public void Add(Type module)
     {
         _modules.Add(module);
+    }
+    public void Remove(Type module)
+    {
+        _modules.Remove(module);
     }
 
     public Type Get(MonoBehaviour module)
