@@ -5,19 +5,23 @@ using UnityEngine;
 namespace Updater {
     public class TargetEdibleUpdater : IUpdater {
         public override void DoUpdate() {
-            for (int i = TAccessor<TargetEdibleModule>.Instance.Modules.Count - 1; i >= 0; --i) {
-                TargetEdibleModule module = TAccessor<TargetEdibleModule>.Instance.Modules[i];
+
+            if (GameManager.Instance.GameStarted)
+            {
+                for (int i = TAccessor<TargetEdibleModule>.Instance.Modules.Count - 1; i >= 0; --i) {
+                    TargetEdibleModule module = TAccessor<TargetEdibleModule>.Instance.Modules[i];
                 
-                // Choose closest point
-                module.target = ClosestEdibleModule(module);
+                    // Choose closest point
+                    module.target = ClosestEdibleModule(module);
                 
-                if (module.target != null) {
-                    module.navAgent.SetDestination(module.target.transform.position);
-                    module.navAgent.isStopped = false;
-                }
-                else {
-                    module.navAgent.isStopped = true;
-                }
+                    if (module.target != null) {
+                        module.navAgent.SetDestination(module.target.transform.position);
+                        module.navAgent.isStopped = false;
+                    }
+                    else {
+                        module.navAgent.isStopped = true;
+                    }
+                } 
             }
         }
 

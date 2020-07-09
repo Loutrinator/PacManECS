@@ -17,30 +17,34 @@ namespace Updater {
         
         public override void DoUpdate()
         {
-            for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
+            if (GameManager.Instance.GameStarted)
             {
-                
-                FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
-
-                switch (follower.state)
+                for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
                 {
-                    case FollowTargetState.Idle:
-                        SetRandomDestination(follower);
-                        AudioManager.Instance.PlayEnemy();
-                        follower.state = FollowTargetState.Patrolling;
-                        break;
-                    case FollowTargetState.Patrolling :
-                        CheckDistanceToDestination(follower);
-                        CheckDistanceToTarget(follower);
-                        break;
-                    case FollowTargetState.Chasing :
-                        RefreshTargetDestination(follower);
-                        CheckKillPacMan(follower);
-                        break;
-                    case FollowTargetState.RunAway :
-                        break;
+                
+                    FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+
+                    switch (follower.state)
+                    {
+                        case FollowTargetState.Idle:
+                            SetRandomDestination(follower);
+                            AudioManager.Instance.PlayEnemy();
+                            follower.state = FollowTargetState.Patrolling;
+                            break;
+                        case FollowTargetState.Patrolling :
+                            CheckDistanceToDestination(follower);
+                            CheckDistanceToTarget(follower);
+                            break;
+                        case FollowTargetState.Chasing :
+                            RefreshTargetDestination(follower);
+                            CheckKillPacMan(follower);
+                            break;
+                        case FollowTargetState.RunAway :
+                            break;
+                    }
                 }
             }
+            
         }
 
         void CheckDistanceToDestination(FollowTarget follower)
