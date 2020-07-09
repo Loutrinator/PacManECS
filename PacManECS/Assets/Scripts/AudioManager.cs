@@ -29,6 +29,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource EnemyAudioSource;
     [SerializeField] private AudioSource ChasingAudioSource;
     [SerializeField] private AudioSource FruitAudioSource;
+    [SerializeField] private AudioSource DeadAudioSource;
     public void PlayEating()
     {
         EatingAudioSource.Play();
@@ -60,5 +61,13 @@ public class AudioManager : MonoBehaviour
     public void StopFruit()
     {
         FruitAudioSource.Stop();
+    }
+    public void PlayDead()
+    {
+        StopChasing();
+        StopEnemy();
+        StopFruit();
+        EatingAudioSource.Stop();
+        DeadAudioSource.Play();
     }
 }
