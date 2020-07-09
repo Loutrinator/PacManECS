@@ -1,18 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EdibleModule : MonoBehaviour
+public enum EdibleType{point,fruit}
+public class EdibleModule : Module
 {
-    // Start is called before the first frame update
-    void Start()
+    public EdibleType edibleType;
+    public override void Register()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        TAccessor<EdibleModule>.Instance.Add(this);
     }
 }
