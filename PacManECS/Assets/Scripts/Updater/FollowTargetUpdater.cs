@@ -1,27 +1,114 @@
-﻿using Accessor;
+﻿using System;
+using Accessor;
 using Modules;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Updater {
     public class FollowTargetUpdater : IUpdater
     {
-    
+        public float targetDetectionDistance = 3f;
+        public float destinationDetectionPrecision = 1f;
+        public float minX = -10f;
+        public float maxX = 10f;
+        public float minY = 10f;
+        public float maxY = -20f;
+        
         public override void DoUpdate()
         {
             for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
             {
-                Debug.Log("Follow Target number " + i);
+                
                 FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
-                if (follower.target != null)
+
+                switch (follower.state)
                 {
-                    follower.navAgent.SetDestination(follower.target.transform.position);
-                    follower.navAgent.isStopped = false;
-                }
-                else
-                {
-                    follower.navAgent.isStopped = true;
+                    case FollowTargetState.Idle:
+                        SetRandomDestination(follower);
+                        follower.state = FollowTargetState.Patrolling;
+                        break;
+                    case FollowTargetState.Patrolling :
+                        checkDistanceToDestination(follower);
+                        checkDistanceToTarget(follower);
+                        break;
+                    case FollowTargetState.Chasing :
+                        RefreshTargetDestination(follower);
+                        break;
+                    case FollowTargetState.RunAway :
+                        break;
                 }
             }
         }
+
+        void checkDistanceToDestination(FollowTarget follower)
+        {
+            float distanceToPacMan =
+                (follower.transform.position - follower.navAgent.destination).magnitude;
+            if (distanceToPacMan <= destinationDetectionPrecision )
+            {
+                SetRandomDestination(follower);
+            }
+        }
+        void checkDistanceToTarget(FollowTarget follower)
+        {
+            float distanceToPacMan =
+                (follower.transform.position - follower.target.transform.position).magnitude;
+            Debug.Log("distanceToPacMan " + distanceToPacMan);
+            if (distanceToPacMan <=
+                targetDetectionDistance)
+            {
+                SetTargetAsDestination(follower);
+                follower.state = FollowTargetState.Chasing;
+            }
+        }
+        void SetRandomDestination(FollowTarget follower)
+        {
+            Debug.Log("SetRandomDestination");
+            
+            float x = Random.Range(minX, maxX);
+            float y = Random.Range(minY, maxY);
+            Vector3 d = new Vector3(x, 0, y);
+            
+            follower.navAgent.SetDestination(d);
+            follower.navAgent.isStopped = false;
+            
+            Debug.Log("d " + d + " destination " + follower.navAgent.destination);
+        }
+        void SetTargetAsDestination(FollowTarget follower)
+        {
+            Debug.Log("SetTargetAsDestination");
+            follower.navAgent.SetDestination(follower.target.transform.position);
+            follower.navAgent.isStopped = false;
+            Debug.Log("FOLLOWING PLAYER");
+        }
+        void RefreshTargetDestination(FollowTarget follower)
+        {
+            follower.navAgent.SetDestination(follower.target.transform.position);
+        }
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Vector3 A = new Vector3(minX,0,maxY);
+            Vector3 B = new Vector3(maxX,0,maxY);
+            Vector3 C = new Vector3(maxX,0,minY);
+            Vector3 D = new Vector3(minX,0,minY);
+            Gizmos.DrawLine(A,B);
+            Gizmos.DrawLine(B,C);
+            Gizmos.DrawLine(C,D);
+            Gizmos.DrawLine(D,A);
+            if (Application.isPlaying)
+            {
+                for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
+                {
+                
+                    FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+                
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(follower.navAgent.destination,follower.transform.position);
+                }
+            }
+        }
+        
     }
 }
