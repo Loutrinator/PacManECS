@@ -1,16 +1,24 @@
-﻿using Accessor;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Updater {
-    public class FollowTargetUpdater : IUpdater
+public class FollowTargetUpdater : MonoBehaviour
+{
+    
+    void Update()
     {
-        public override void DoUpdate()
+        for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
         {
-            for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; i++)
+            Debug.Log("Follow Target number " + i);
+            FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+            if (follower.target != null)
             {
-                FollowTarget module = TAccessor<FollowTarget>.Instance.Modules[i];
-                Vector3 dist = module.transform.position - module.target.transform.position;
-                var entity = TAccessor<Entity>.Instance.Get(module);
+                follower.navAgent.SetDestination(follower.target.transform.position);
+                follower.navAgent.isStopped = false;
+            }
+            else
+            {
+                follower.navAgent.isStopped = true;
             }
         }
     }
