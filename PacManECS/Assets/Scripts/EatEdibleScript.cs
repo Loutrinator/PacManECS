@@ -18,7 +18,6 @@ public class EatEdibleScript : MonoBehaviour
                     scoreModule.score += 100;
                     break;
             }
-            edible.Unregister();
             Destroy(edible.gameObject);
         }
     }
