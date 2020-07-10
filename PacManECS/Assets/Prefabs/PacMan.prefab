@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1890193551310642818}
   - component: {fileID: 8183474417356728927}
   m_Layer: 10
-  m_Name: Renderer
+  m_Name: boucheD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95762450185179609}
   m_LocalRotation: {x: 0.49999857, y: 0.49999994, z: -0.50000006, w: 0.5000015}
-  m_LocalPosition: {x: 0.000000002275903, y: 0.0000000023490858, z: -1.02681794e-16}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2380961762448713327}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: -90.00001}
 --- !u!23 &1890193551310642818
 MeshRenderer:
@@ -91,9 +91,8 @@ GameObject:
   - component: {fileID: 2229527271372531038}
   - component: {fileID: 3182369456280955496}
   - component: {fileID: 4736888884005477483}
-  - component: {fileID: 4292919984106750027}
   m_Layer: 0
-  m_Name: bouche
+  m_Name: boucheG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -107,11 +106,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716296899710693716}
   m_LocalRotation: {x: 0.49999857, y: 0.49999994, z: -0.50000006, w: 0.5000015}
-  m_LocalPosition: {x: 0.000000002275903, y: 0.0000000023490858, z: -1.02681794e-16}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2380961762448713327}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: -90.00001}
 --- !u!23 &3182369456280955496
 MeshRenderer:
@@ -161,25 +160,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716296899710693716}
   m_Mesh: {fileID: 4711208715938537054, guid: 96c691389eadff54daac11fcfcb4c747, type: 3}
---- !u!95 &4292919984106750027
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716296899710693716}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c21b80e9203bd174a8b9ae943d0a3316, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1680328384315249788
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +177,7 @@ GameObject:
   - component: {fileID: 103003474499558293}
   - component: {fileID: 9124340365834584243}
   - component: {fileID: 1652296579388054328}
+  - component: {fileID: 7144404401761885726}
   m_Layer: 10
   m_Name: PacMan
   m_TagString: Untagged
@@ -212,13 +193,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680328384315249788}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.223, y: 0, z: -0.928}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 45.83153, y: 45.83153, z: 45.83153}
   m_Children:
+  - {fileID: 2229527271372531038}
   - {fileID: 2972056121431563916}
   - {fileID: 2605260337023848263}
   - {fileID: 5877804160219484975}
-  - {fileID: 2229527271372531038}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -327,7 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  navAgent: {fileID: 7970929650017455631}
 --- !u!114 &1652296579388054328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +320,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb8aed80cd52eb45a29458ca280a757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7144404401761885726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680328384315249788}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c21b80e9203bd174a8b9ae943d0a3316, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4936315674067866167
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +367,7 @@ Transform:
   m_LocalScale: {x: 0.021819038, y: 0.021819038, z: 0.021819038}
   m_Children: []
   m_Father: {fileID: 2380961762448713327}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8269721947295775206
 GameObject:
@@ -398,5 +397,5 @@ Transform:
   m_LocalScale: {x: 0.021819038, y: 0.021819038, z: 0.021819038}
   m_Children: []
   m_Father: {fileID: 2380961762448713327}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

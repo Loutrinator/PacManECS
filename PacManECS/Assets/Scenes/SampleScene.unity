@@ -5426,8 +5426,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 59
-  orthographic: 0
-  orthographic size: 10
+  orthographic: 1
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5450,13 +5450,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.6427876, y: 0, z: 0, w: 0.7660445}
-  m_LocalPosition: {x: 0, y: 27.48, z: -9.96}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 27.48, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 80, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &967024969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7762176952325242403, guid: d09735b7d4356454f879e679b1224c98,
@@ -13801,7 +13801,7 @@ PrefabInstance:
     - target: {fileID: 716296899710693716, guid: 3d628d1656c10e14bb82caa4e224218d,
         type: 3}
       propertyPath: m_Name
-      value: bouche
+      value: boucheG
       objectReference: {fileID: 0}
     - target: {fileID: 1111667621915254944, guid: 3d628d1656c10e14bb82caa4e224218d,
         type: 3}
