@@ -1904,7 +1904,7 @@ PrefabInstance:
     - target: {fileID: 7762176952325242403, guid: d09735b7d4356454f879e679b1224c98,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -471.07
+      value: -470.92
       objectReference: {fileID: 0}
     - target: {fileID: 7762176952325242403, guid: d09735b7d4356454f879e679b1224c98,
         type: 3}
@@ -7856,10 +7856,10 @@ MonoBehaviour:
   targetDetectionDistance: 3
   destinationDetectionPrecision: 1
   enemyScaredMaterial: {fileID: 2100000, guid: f07203aa0b39cfd49af46df64f550337, type: 2}
-  minX: -10
-  maxX: 10
-  minY: 10
-  maxY: -20
+  minX: -11
+  maxX: 11
+  minY: 8.3
+  maxY: -16.8
 --- !u!4 &1252003876
 Transform:
   m_ObjectHideFlags: 0
@@ -13799,6 +13799,11 @@ PrefabInstance:
       propertyPath: tMPro
       value: 
       objectReference: {fileID: 1182380737}
+    - target: {fileID: 716296899710693716, guid: 3d628d1656c10e14bb82caa4e224218d,
+        type: 3}
+      propertyPath: m_Name
+      value: bouche
+      objectReference: {fileID: 0}
     - target: {fileID: 1111667621915254944, guid: 3d628d1656c10e14bb82caa4e224218d,
         type: 3}
       propertyPath: m_Materials.Array.size

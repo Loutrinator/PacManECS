@@ -11,8 +11,11 @@ namespace Updater {
                 PlayerFollowTarget follower = TAccessor<PlayerFollowTarget>.Instance.Modules[i];
 
                 GetClosestEnemy(follower);
-                if (follower.target != null && GameManager.Instance.isFruitActive) {
-                    TAccessor<TargetEdibleModule>.Instance.Get(follower).target = follower.target;
+                if (follower.target != null /*&& GameManager.Instance.isFruitActive*/) {
+                    RefreshTargetDestination(follower);
+                    TAccessor<TargetEdibleModule>.Instance.Get(follower).doChase = false;
+                } else {
+                    TAccessor<TargetEdibleModule>.Instance.Get(follower).doChase = true;
                 }
             }
         }

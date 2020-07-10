@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4736888884005477483}
   - component: {fileID: 4292919984106750027}
   m_Layer: 0
-  m_Name: Renderer (1)
+  m_Name: bouche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
