@@ -131,7 +131,7 @@ namespace Updater {
         
         void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.magenta;
             Vector3 a = new Vector3(minX,0,maxY);
             Vector3 b = new Vector3(maxX,0,maxY);
             Vector3 c = new Vector3(maxX,0,minY);
@@ -147,7 +147,8 @@ namespace Updater {
                 
                     FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
                 
-                    Gizmos.color = Color.green;
+                    
+                    Gizmos.color = follower.state == FollowTargetState.Chasing ? Color.red : Color.green;
                     Gizmos.DrawLine(follower.navAgent.destination,follower.transform.position);
                 }
             }
