@@ -18,7 +18,9 @@ namespace Updater {
             
                 if (module.target != null) {
                     //Debug.Log("Target = " + module.target.name);
-                    module.navAgent.SetDestination(module.target.transform.position);
+                    Vector3 dest = module.target.transform.position;
+                    dest.y = 0;
+                    module.navAgent.SetDestination(dest);
                     module.navAgent.isStopped = false;
                 }
                 else {

@@ -1,5 +1,4 @@
 ﻿using Accessor;
-using UnityEngine.AI;
 
 namespace Modules {
     public class PlayerFollowTarget : ITarget
@@ -13,11 +12,6 @@ namespace Modules {
 
         public override void Unregister() {
             TAccessor<PlayerFollowTarget>.Instance.Remove(this);
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
         }
     }
 }
