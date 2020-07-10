@@ -6,6 +6,8 @@ namespace Modules {
         public abstract void Register();
         //TODO: Unregister
 
+        public abstract void Unregister();
+
         public virtual void Awake()
         {
             Register();

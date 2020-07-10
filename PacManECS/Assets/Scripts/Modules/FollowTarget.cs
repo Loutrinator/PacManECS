@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Modules {
     public enum FollowTargetState{Idle,Patrolling,Chasing,RunAway}
-    public class FollowTarget : ITarget
+    public class FollowTarget : ITarget    // Enemy follow target
     {
         public Entity target;
         public NavMeshAgent navAgent;
@@ -15,6 +15,10 @@ namespace Modules {
         public override void Register()
         {
             TAccessor<FollowTarget>.Instance.Add(this);
+        }
+
+        public override void Unregister() {
+            TAccessor<FollowTarget>.Instance.Remove(this);
         }
 
         public override void Awake()
