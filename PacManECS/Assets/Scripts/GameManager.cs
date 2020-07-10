@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     //UI
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI readyText;
-    public TextMeshProUGUI gameOverText;
+    public GameObject gameOverText;
     public GameObject retryButton;
     
     //Other
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayDead();
         _gameIsRunning = false;
         int hs = PlayerPrefs.GetInt("highscore");
-        gameOverText.enabled = true;
+        gameOverText.SetActive(true);
         retryButton.SetActive(true);
         if (score > hs)
         {
@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartGame() {
-        // TODO
-        //SceneManager.LoadScene(index);
+        SceneManager.LoadScene(0);
     }
 }

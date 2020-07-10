@@ -107,7 +107,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.1
+    agentRadius: 0.25
     agentHeight: 0.2
     agentSlope: 45
     agentClimb: 0.16
@@ -115,7 +115,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.033333335
+    cellSize: 0.083333336
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -13169,7 +13169,7 @@ MonoBehaviour:
   timeToStart: 5
   highscoreText: {fileID: 1996815776}
   readyText: {fileID: 2005026101}
-  gameOverText: {fileID: 1830541946}
+  gameOverText: {fileID: 1830541944}
   retryButton: {fileID: 1725501893}
 --- !u!4 &2033946584
 Transform:
@@ -14367,6 +14367,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WalkableMask
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970929650017455631, guid: 3d628d1656c10e14bb82caa4e224218d,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8183474417356728927, guid: 3d628d1656c10e14bb82caa4e224218d,
         type: 3}
