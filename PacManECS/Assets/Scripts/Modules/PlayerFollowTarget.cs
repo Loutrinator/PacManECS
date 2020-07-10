@@ -1,9 +1,10 @@
 ﻿using Accessor;
+using UnityEngine;
 
 namespace Modules {
-    public class PlayerFollowTarget : ITarget
+    public class PlayerFollowTarget : Module
     {
-        public ITarget target;
+        public GameObject target;
         
         public override void Register()
         {

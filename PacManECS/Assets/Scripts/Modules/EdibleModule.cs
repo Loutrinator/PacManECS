@@ -6,7 +6,7 @@ namespace Modules {
         Fruit
     }
 
-    public class EdibleModule : ITarget {
+    public class EdibleModule : Module {
         public EdibleType edibleType;
 
         public override void Register() {

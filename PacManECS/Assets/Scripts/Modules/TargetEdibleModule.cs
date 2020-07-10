@@ -1,9 +1,10 @@
 ﻿using Accessor;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Modules {
     public class TargetEdibleModule : Module {
-        public ITarget target;
+        public GameObject target;
         public NavMeshAgent navAgent;
         public bool doChase;
         public override void Register() {

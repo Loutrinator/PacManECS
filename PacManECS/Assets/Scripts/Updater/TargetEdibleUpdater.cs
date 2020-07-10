@@ -29,15 +29,15 @@ namespace Updater {
             }
         }
 
-        private ITarget ClosestEdibleModule(TargetEdibleModule targetEdibleModule) {
+        private GameObject ClosestEdibleModule(TargetEdibleModule targetEdibleModule) {
             float distance = float.MaxValue;
-            ITarget target = null;
+            GameObject target = null;
             for (int i = TAccessor<EdibleModule>.Instance.Modules.Count - 1; i >= 0; --i) {
                 EdibleModule edible = TAccessor<EdibleModule>.Instance.Modules[i];
                 float curDist = Vector3.Distance(edible.transform.position, targetEdibleModule.transform.position);
                 if (curDist < distance) {
                     distance = curDist;
-                    target = edible;
+                    target = edible.gameObject;
                 }
             }
             return target;

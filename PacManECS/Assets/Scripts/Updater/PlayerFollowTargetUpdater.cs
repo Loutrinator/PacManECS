@@ -24,7 +24,7 @@ namespace Updater {
                 float curDist = Vector3.Distance(enemy.transform.position, follower.transform.position);
                 if (curDist < distance) {
                     distance = curDist;
-                    follower.target = enemy;
+                    follower.target = enemy.gameObject;
                 }
             }
         }
