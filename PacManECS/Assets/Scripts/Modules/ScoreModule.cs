@@ -8,5 +8,9 @@ namespace Modules {
         public override void Register() {
             TAccessor<ScoreModule>.Instance.Add(this);
         }
+
+        public override void Unregister() {
+            TAccessor<ScoreModule>.Instance.Remove(this);
+        }
     }
 }

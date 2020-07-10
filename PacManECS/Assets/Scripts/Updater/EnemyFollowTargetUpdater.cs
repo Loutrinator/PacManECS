@@ -1,11 +1,9 @@
 ﻿using Accessor;
 using Modules;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Updater {
-    public class FollowTargetUpdater : IUpdater
-    {
+    public class EnemyFollowTargetUpdater : IUpdater {
         public float targetDetectionDistance = 3f;
         public float destinationDetectionPrecision = 1f;
         public Material enemyScaredMaterial;
@@ -14,47 +12,43 @@ namespace Updater {
         public float minY = 10f;
         public float maxY = -20f;
 
-        public override void DoUpdate()
-        {
-            if (GameManager.Instance.GameIsRunning)
+        public override void DoUpdate() {
+            if (!GameManager.Instance.GameIsRunning) return;
+            for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
             {
-                for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
+            
+                FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+
+                switch (follower.state)
                 {
-                
-                    FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+                    case FollowTargetState.Idle:
+                        SetRandomDestination(follower);
+                        AudioManager.Instance.PlayEnemy();
+                        follower.state = FollowTargetState.Patrolling;
+                        break;
+                    case FollowTargetState.Patrolling :
+                        CheckDistanceToDestination(follower);
+                        CheckDistanceToTarget(follower);
+                        break;
+                    case FollowTargetState.Chasing :
+                        RefreshTargetDestination(follower);
+                        CheckKillPacMan(follower);
+                        break;
+                    case FollowTargetState.RunAway :
+                        RunFromTarget(follower);
+                        
+                        break;
+                }
 
-                    switch (follower.state)
-                    {
-                        case FollowTargetState.Idle:
-                            SetRandomDestination(follower);
-                            AudioManager.Instance.PlayEnemy();
-                            follower.state = FollowTargetState.Patrolling;
-                            break;
-                        case FollowTargetState.Patrolling :
-                            CheckDistanceToDestination(follower);
-                            CheckDistanceToTarget(follower);
-                            break;
-                        case FollowTargetState.Chasing :
-                            RefreshTargetDestination(follower);
-                            CheckKillPacMan(follower);
-                            break;
-                        case FollowTargetState.RunAway :
-                            RunFromTarget(follower);
-                            
-                            break;
-                    }
-
-                    if (GameManager.Instance.isFruitActive)
-                    {
-                        if(follower.state != FollowTargetState.RunAway) SetScared(follower);
-                    }
-                    else
-                    {
-                        if(follower.state == FollowTargetState.RunAway) SetIdle(follower);
-                    }
+                if (GameManager.Instance.isFruitActive)
+                {
+                    if(follower.state != FollowTargetState.RunAway) SetScared(follower);
+                }
+                else
+                {
+                    if(follower.state == FollowTargetState.RunAway) SetIdle(follower);
                 }
             }
-            
         }
 
         void CheckDistanceToDestination(FollowTarget follower)
@@ -137,7 +131,7 @@ namespace Updater {
         
         void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.magenta;
             Vector3 a = new Vector3(minX,0,maxY);
             Vector3 b = new Vector3(maxX,0,maxY);
             Vector3 c = new Vector3(maxX,0,minY);
@@ -153,11 +147,11 @@ namespace Updater {
                 
                     FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
                 
-                    Gizmos.color = Color.green;
+                    
+                    Gizmos.color = follower.state == FollowTargetState.Chasing ? Color.red : Color.green;
                     Gizmos.DrawLine(follower.navAgent.destination,follower.transform.position);
                 }
             }
         }
-        
     }
 }

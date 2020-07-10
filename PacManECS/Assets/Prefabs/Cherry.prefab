@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8512163047069865330}
   - component: {fileID: 3157571806398971317}
   - component: {fileID: 3212984436869753412}
-  m_Layer: 0
+  - component: {fileID: 2992771928911686959}
+  m_Layer: 11
   m_Name: Cherry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,3 +96,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edibleType: 1
+--- !u!135 &2992771928911686959
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3449041804352648253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: -0.000000029802322, z: 0.5796857}
