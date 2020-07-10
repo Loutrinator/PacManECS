@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class GameManager : MonoBehaviour
     public float timeToStart = 5f;
 
     //UI
-    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI readyText;
+    public TextMeshProUGUI gameOverText;
+    public GameObject retryButton;
     
     //Other
     private Stopwatch _startStopWatch;
@@ -77,10 +79,17 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.PlayDead();
         _gameIsRunning = false;
         int hs = PlayerPrefs.GetInt("highscore");
+        gameOverText.enabled = true;
+        retryButton.SetActive(true);
         if (score > hs)
         {
             PlayerPrefs.SetInt("highscore",score);
             PlayerPrefs.Save();
         }
+    }
+
+    public void RestartGame() {
+        // TODO
+        //SceneManager.LoadScene(index);
     }
 }
