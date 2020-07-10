@@ -12,5 +12,9 @@ namespace Modules {
         public override void Register() {
             TAccessor<EdibleModule>.Instance.Add(this);
         }
+
+        public override void Unregister() {
+            TAccessor<EdibleModule>.Instance.Remove(this);
+        }
     }
 }

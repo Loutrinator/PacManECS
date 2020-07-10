@@ -1,24 +1,19 @@
 ﻿using Accessor;
-using UnityEngine;
 using UnityEngine.AI;
 
 namespace Modules {
-    public enum FollowTargetState{Idle,Patrolling,Chasing,RunAway}
-    public class FollowTarget : ITarget    // Enemy follow target
+    public class PlayerFollowTarget : ITarget
     {
         public Entity target;
         public NavMeshAgent navAgent;
-        public MeshRenderer mr;
-        public FollowTargetState state = FollowTargetState.Chasing;
-        public Material color;
         
         public override void Register()
         {
-            TAccessor<FollowTarget>.Instance.Add(this);
+            TAccessor<PlayerFollowTarget>.Instance.Add(this);
         }
 
         public override void Unregister() {
-            TAccessor<FollowTarget>.Instance.Remove(this);
+            TAccessor<PlayerFollowTarget>.Instance.Remove(this);
         }
 
         public override void Awake()
@@ -27,7 +22,6 @@ namespace Modules {
             if (navAgent == null)
             {
                 navAgent = GetComponent<NavMeshAgent>();
-                mr = GetComponent<MeshRenderer>();
             }
         }
     }

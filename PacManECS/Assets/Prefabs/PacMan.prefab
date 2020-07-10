@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2972056121431563916}
   - component: {fileID: 1890193551310642818}
   - component: {fileID: 8183474417356728927}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,9 @@ GameObject:
   - component: {fileID: 7970929650017455631}
   - component: {fileID: 7694954931800078599}
   - component: {fileID: 103003474499558293}
-  m_Layer: 0
+  - component: {fileID: 9124340365834584243}
+  - component: {fileID: 1652296579388054328}
+  m_Layer: 10
   m_Name: PacMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   navAgent: {fileID: 0}
+  doChase: 0
 --- !u!54 &9217874390772952483
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -210,6 +213,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   tMPro: {fileID: 0}
+--- !u!114 &9124340365834584243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680328384315249788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9b21dd7462298428439dc00a147ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  navAgent: {fileID: 7970929650017455631}
+--- !u!114 &1652296579388054328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680328384315249788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb8aed80cd52eb45a29458ca280a757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4936315674067866167
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2605260337023848263}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cameraFollowTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5877804160219484975}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cameraLookTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Modules;
-using UnityEngine;
+﻿using Modules;
 
 public abstract class ITarget : Module {}

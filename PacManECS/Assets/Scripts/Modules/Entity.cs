@@ -7,5 +7,9 @@ namespace Modules {
         {
             TAccessor<Entity>.Instance.Add(this);
         }
+
+        public override void Unregister() {
+            TAccessor<Entity>.Instance.Remove(this);
+        }
     }
 }

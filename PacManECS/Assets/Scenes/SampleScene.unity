@@ -7831,6 +7831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252003876}
   - component: {fileID: 1252003875}
+  - component: {fileID: 1252003879}
   - component: {fileID: 1252003877}
   - component: {fileID: 1252003878}
   m_Layer: 0
@@ -7849,16 +7850,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1252003874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd6e9dc05df91b46a7a825927a41b7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 885782eb9ab59fa429c58740d9abaf16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionDistance: 5
+  targetDetectionDistance: 3
   destinationDetectionPrecision: 1
   enemyScaredMaterial: {fileID: 2100000, guid: f07203aa0b39cfd49af46df64f550337, type: 2}
-  minX: -11
-  maxX: 11
-  minY: 8.41
-  maxY: -16.77
+  minX: -10
+  maxX: 10
+  minY: 10
+  maxY: -20
 --- !u!4 &1252003876
 Transform:
   m_ObjectHideFlags: 0
@@ -7897,6 +7898,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd46e13047a235409e4b94b3c087417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1252003879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252003874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d3d4406127e9f4a9585d774fd86674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destinationDetectionPrecision: 1
+  detectionDistance: 10
+  isChasing: 0
 --- !u!1001 &1255700276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13874,16 +13890,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 64.92989
-      objectReference: {fileID: 0}
-    - target: {fileID: 7951927269203246690, guid: 3d628d1656c10e14bb82caa4e224218d,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.008
-      objectReference: {fileID: 0}
-    - target: {fileID: 7951927269203246690, guid: 3d628d1656c10e14bb82caa4e224218d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970929650017455631, guid: 3d628d1656c10e14bb82caa4e224218d,
         type: 3}
