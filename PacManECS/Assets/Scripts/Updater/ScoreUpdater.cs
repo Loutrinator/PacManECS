@@ -1,6 +1,5 @@
 ﻿using Accessor;
 using Modules;
-using UnityEngine;
 
 namespace Updater {
     public class ScoreUpdater : IUpdater {

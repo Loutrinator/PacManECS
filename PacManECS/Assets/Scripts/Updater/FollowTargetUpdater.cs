@@ -1,8 +1,6 @@
-﻿using System;
-using Accessor;
+﻿using Accessor;
 using Modules;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Updater {
@@ -84,8 +82,8 @@ namespace Updater {
             float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
             if (distanceToPacMan <= destinationDetectionPrecision)
             {
-                TargetEdibleModule PacPac = TAccessor<TargetEdibleModule>.Instance.Get(follower.target);
-                KillPlayerScript.KillPlayer(PacPac);
+                TargetEdibleModule pacPac = TAccessor<TargetEdibleModule>.Instance.Get(follower.target);
+                KillPlayerScript.KillPlayer(pacPac);
             }
         }
         void SetRandomDestination(FollowTarget follower)
@@ -129,8 +127,10 @@ namespace Updater {
         void RunFromTarget(FollowTarget follower)
         {
             //Debug.Log("RunFromTarget for " + follower.name);
-            Vector3 dir = follower.transform.position - follower.target.transform.position;
-            Vector3 newPos = follower.transform.position + dir;
+            var followerTransform = follower.transform;
+            var followerPosition = followerTransform.position;
+            Vector3 dir = followerPosition - follower.target.transform.position;
+            Vector3 newPos = followerPosition + dir;
             follower.navAgent.SetDestination(newPos);
         }
         
@@ -138,14 +138,14 @@ namespace Updater {
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Vector3 A = new Vector3(minX,0,maxY);
-            Vector3 B = new Vector3(maxX,0,maxY);
-            Vector3 C = new Vector3(maxX,0,minY);
-            Vector3 D = new Vector3(minX,0,minY);
-            Gizmos.DrawLine(A,B);
-            Gizmos.DrawLine(B,C);
-            Gizmos.DrawLine(C,D);
-            Gizmos.DrawLine(D,A);
+            Vector3 a = new Vector3(minX,0,maxY);
+            Vector3 b = new Vector3(maxX,0,maxY);
+            Vector3 c = new Vector3(maxX,0,minY);
+            Vector3 d = new Vector3(minX,0,minY);
+            Gizmos.DrawLine(a,b);
+            Gizmos.DrawLine(b,c);
+            Gizmos.DrawLine(c,d);
+            Gizmos.DrawLine(d,a);
             if (Application.isPlaying)
             {
                 for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)

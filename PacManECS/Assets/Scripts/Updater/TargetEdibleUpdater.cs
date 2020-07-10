@@ -23,7 +23,7 @@ namespace Updater {
                     // Choose closest point
                 
                     if (module.target != null) {
-                        Debug.Log("Target = " + module.target.name);
+                        //Debug.Log("Target = " + module.target.name);
                         module.navAgent.SetDestination(module.target.transform.position);
                         module.navAgent.isStopped = false;
                     }
@@ -80,10 +80,10 @@ namespace Updater {
                 for (int i = 0; i < TAccessor<TargetEdibleModule>.Instance.Modules.Count; ++i)
                 {
                 
-                    TargetEdibleModule PacMan = TAccessor<TargetEdibleModule>.Instance.Modules[i];
+                    TargetEdibleModule pacMan = TAccessor<TargetEdibleModule>.Instance.Modules[i];
                 
                     Gizmos.color = Color.yellow;
-                    Gizmos.DrawLine(PacMan.navAgent.destination,PacMan.transform.position);
+                    Gizmos.DrawLine(pacMan.navAgent.destination, pacMan.transform.position);
                 }
             }
         }

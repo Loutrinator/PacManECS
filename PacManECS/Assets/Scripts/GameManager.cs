@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -9,26 +6,11 @@ public class GameManager : MonoBehaviour
 {
     #region Instance
     private static GameManager _instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<GameManager>();
-                if (_instance == null) {
-                
-                    _instance = new GameObject().AddComponent<GameManager>();
-                    _instance.name = "GameManager";
-                }
-            }
-            return _instance;
-        }
-    }
+    public static GameManager Instance => _instance;
     #endregion
     //Gameplay
-    public bool isFruitActive = false;
-    private bool _gameIsRunning = false;
+    public bool isFruitActive;
+    private bool _gameIsRunning;
     public bool GameIsRunning => _gameIsRunning;
     [HideInInspector] public int score;
     public float timeToStart = 5f;
@@ -39,43 +21,48 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI readyText;
     
     //Other
-    private Stopwatch startStopWatch;
-    private Stopwatch fruitStopWatch;
+    private Stopwatch _startStopWatch;
+    private Stopwatch _fruitStopWatch;
 
+    private void Awake() {
+        if(_instance != null && _instance != this) Destroy(gameObject);
+        _instance = this;
+    }
+    
     private void Start()
     {
         StartNewGame();
-        fruitStopWatch = new Stopwatch();
+        _fruitStopWatch = new Stopwatch();
         
     }
 
     private void Update()
     {
-        if (startStopWatch.IsRunning && startStopWatch.Elapsed.Seconds >= timeToStart)
+        if (_startStopWatch.IsRunning && _startStopWatch.Elapsed.Seconds >= timeToStart)
         {
-            startStopWatch.Stop();
-            fruitStopWatch.Reset();
+            _startStopWatch.Stop();
+            _fruitStopWatch.Reset();
             readyText.enabled = false;
             _gameIsRunning = true;
         }
-        if (fruitStopWatch.IsRunning && fruitStopWatch.Elapsed.Seconds >= timeToStart)
+        if (_fruitStopWatch.IsRunning && _fruitStopWatch.Elapsed.Seconds >= timeToStart)
         {
-            fruitStopWatch.Stop();
-            fruitStopWatch.Reset();
+            _fruitStopWatch.Stop();
+            _fruitStopWatch.Reset();
             StopFruitMode();
         }
     }
 
     private void StartNewGame()
     {
-        startStopWatch = Stopwatch.StartNew();
+        _startStopWatch = Stopwatch.StartNew();
         int hs = PlayerPrefs.GetInt("highscore");
         highscoreText.text = "HIGHSCORE\n" + hs;
         readyText.enabled = true;
     }
 
     public void ActivateFruitMode()
-    {   fruitStopWatch.Restart();
+    {   _fruitStopWatch.Restart();
         isFruitActive = true;
         AudioManager.Instance.PlayFruit();
     }
@@ -95,6 +82,5 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("highscore",score);
             PlayerPrefs.Save();
         }
-
     }
 }

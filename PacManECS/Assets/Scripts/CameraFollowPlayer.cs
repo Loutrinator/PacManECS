@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
@@ -10,8 +7,8 @@ public class CameraFollowPlayer : MonoBehaviour
     public Vector3 dist;
     public Transform lookTarget;
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
+        if (lookTarget == null) return;
         Vector3 distancePos = cameraTarget.position + dist;
         Vector3 smoothedPos = Vector3.Lerp(transform.position, distancePos, smoothedSpeed * Time.fixedDeltaTime);
         transform.position = smoothedPos;
