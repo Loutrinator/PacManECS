@@ -4,8 +4,7 @@ using UnityEngine.AI;
 namespace Modules {
     public class PlayerFollowTarget : ITarget
     {
-        public Entity target;
-        public NavMeshAgent navAgent;
+        public ITarget target;
         
         public override void Register()
         {
@@ -19,10 +18,6 @@ namespace Modules {
         public override void Awake()
         {
             base.Awake();
-            if (navAgent == null)
-            {
-                navAgent = GetComponent<NavMeshAgent>();
-            }
         }
     }
 }

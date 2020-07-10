@@ -9,16 +9,10 @@ namespace Updater {
             for (int i = TAccessor<TargetEdibleModule>.Instance.Modules.Count - 1; i >= 0; --i) {
                 TargetEdibleModule module = TAccessor<TargetEdibleModule>.Instance.Modules[i];
                 
-                if (!module.doChase) continue;
-
-                if (GameManager.Instance.isFruitActive)
+                if (!GameManager.Instance.isFruitActive)
                 {
                     //module.target = ClosestEnemyModule(module); //pour aller chercher les enemis
                     module.target = ClosestEdibleModule(module); //temporaire
-                }
-                else
-                {
-                    module.target = ClosestEdibleModule(module);
                 }
                 // Choose closest point
             
