@@ -32,7 +32,6 @@ namespace Updater {
                         break;
                     case FollowTargetState.Chasing :
                         RefreshTargetDestination(follower);
-                        CheckKillPacMan(follower);
                         break;
                     case FollowTargetState.RunAway :
                         RunFromTarget(follower);
@@ -71,15 +70,7 @@ namespace Updater {
                 follower.state = FollowTargetState.Chasing;
             }
         }
-        void CheckKillPacMan(FollowTarget follower)
-        {
-            float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
-            if (distanceToPacMan <= destinationDetectionPrecision)
-            {
-                TargetEdibleModule pacPac = TAccessor<TargetEdibleModule>.Instance.Get(follower.target);
-                KillPlayerScript.KillPlayer(pacPac);
-            }
-        }
+        
         void SetRandomDestination(FollowTarget follower)
         {
             //Debug.Log("SetRandomDestination");
