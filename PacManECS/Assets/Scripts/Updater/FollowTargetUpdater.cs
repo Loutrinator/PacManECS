@@ -8,73 +8,133 @@ using Random = UnityEngine.Random;
 namespace Updater {
     public class FollowTargetUpdater : IUpdater
     {
-        public float targetDistanceThreshold = 1f;
-        public float detectionDistance = 3f;
+        public float targetDetectionDistance = 3f;
+        public float destinationDetectionPrecision = 1f;
+        public Material enemyScaredMaterial;
         public float minX = -10f;
         public float maxX = 10f;
         public float minY = 10f;
         public float maxY = -20f;
-        public bool dumbModeActivated = false;
+
         public override void DoUpdate()
         {
-            for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
+            if (GameManager.Instance.GameIsRunning)
             {
-                FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
-                Debug.Log("Follower ID : " + i + ", stopped : " + follower.navAgent.isStopped + " distance : " + (follower.transform.position - follower.navAgent.destination).magnitude);
-                if (!dumbModeActivated)
+                for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
                 {
-                    if (!follower.isChasing)//si l'enemi chasse personne
-                    {
-                        SetTargetAsDestination(follower);
-                    }
-                }
-                else
-                {
-                    if (!follower.isChasing)//si l'enemi chasse personne
-                    {
-                        SetRandomDestination(follower);
-                    }else if (follower.isChasing || (follower.transform.position - follower.navAgent.destination).magnitude <=
-                              targetDistanceThreshold)
-                    {
-                        SetRandomDestination(follower);
-                    }
-
-                    if (!follower.chasingTarget) //si l'enemi ne poursuit pas un pacMan
-                    {
-                        if ((follower.transform.position - follower.target.transform.position).magnitude <=
-                            detectionDistance) //si l'enemi est assez proche d'un pacMan
-                        {
-                            SetTargetAsDestination(follower);
-                        }
-
-                        if (follower.isChasing || (follower.transform.position - follower.navAgent.destination).magnitude <=
-                            targetDistanceThreshold)
-                        {
-                            //SetRandomDestination(follower);
-                        }
-                    } 
-                }
                 
+                    FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+
+                    switch (follower.state)
+                    {
+                        case FollowTargetState.Idle:
+                            SetRandomDestination(follower);
+                            AudioManager.Instance.PlayEnemy();
+                            follower.state = FollowTargetState.Patrolling;
+                            break;
+                        case FollowTargetState.Patrolling :
+                            CheckDistanceToDestination(follower);
+                            CheckDistanceToTarget(follower);
+                            break;
+                        case FollowTargetState.Chasing :
+                            RefreshTargetDestination(follower);
+                            CheckKillPacMan(follower);
+                            break;
+                        case FollowTargetState.RunAway :
+                            RunFromTarget(follower);
+                            
+                            break;
+                    }
+
+                    if (GameManager.Instance.isFruitActive)
+                    {
+                        if(follower.state != FollowTargetState.RunAway) SetScared(follower);
+                    }
+                    else
+                    {
+                        if(follower.state == FollowTargetState.RunAway) SetIdle(follower);
+                    }
+                }
             }
+            
         }
 
+        void CheckDistanceToDestination(FollowTarget follower)
+        {
+            float distanceToPacMan = (follower.transform.position - follower.navAgent.destination).magnitude;
+            if (distanceToPacMan <= destinationDetectionPrecision )
+            {
+                SetRandomDestination(follower);
+            }
+        }
+        void CheckDistanceToTarget(FollowTarget follower)
+        {
+            float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
+            //Debug.Log("distanceToPacMan " + distanceToPacMan);
+            if (distanceToPacMan <= targetDetectionDistance)
+            {
+                SetTargetAsDestination(follower);
+                AudioManager.Instance.StopEnemy();
+                AudioManager.Instance.PlayChasing();
+                follower.state = FollowTargetState.Chasing;
+            }
+        }
+        void CheckKillPacMan(FollowTarget follower)
+        {
+            float distanceToPacMan = (follower.transform.position - follower.target.transform.position).magnitude;
+            if (distanceToPacMan <= destinationDetectionPrecision)
+            {
+                TargetEdibleModule PacPac = TAccessor<TargetEdibleModule>.Instance.Get(follower.target);
+                KillPlayerScript.KillPlayer(PacPac);
+            }
+        }
         void SetRandomDestination(FollowTarget follower)
         {
-            Debug.Log("SetRandomDestination");
+            //Debug.Log("SetRandomDestination");
+            
             float x = Random.Range(minX, maxX);
             float y = Random.Range(minY, maxY);
-            follower.navAgent.SetDestination(new Vector3(x,0,y));
+            Vector3 d = new Vector3(x, 0, y);
+            
+            follower.navAgent.SetDestination(d);
             follower.navAgent.isStopped = false;
-            follower.isChasing = true;
+            
+            //Debug.Log("d " + d + " destination " + follower.navAgent.destination);
         }
         void SetTargetAsDestination(FollowTarget follower)
         {
-            Debug.Log("SetTargetAsDestination");
+            //Debug.Log("SetTargetAsDestination");
             follower.navAgent.SetDestination(follower.target.transform.position);
             follower.navAgent.isStopped = false;
-            follower.isChasing = true;
-            follower.chasingTarget = true;
+            //Debug.Log("FOLLOWING PLAYER");
         }
+        void RefreshTargetDestination(FollowTarget follower)
+        {
+            follower.navAgent.SetDestination(follower.target.transform.position);
+        }
+
+        void SetScared(FollowTarget follower)
+        {
+            //Debug.Log("SetScared for " + follower.name);
+            follower.mr.material = enemyScaredMaterial;
+            follower.state = FollowTargetState.RunAway;
+        }
+        void SetIdle(FollowTarget follower)
+        {
+            //Debug.Log("SetIdle for " + follower.name);
+            follower.mr.material = follower.color;
+            follower.state = FollowTargetState.Idle;
+        }
+        
+        void RunFromTarget(FollowTarget follower)
+        {
+            //Debug.Log("RunFromTarget for " + follower.name);
+            Vector3 dir = follower.transform.position - follower.target.transform.position;
+            Vector3 newPos = follower.transform.position + dir;
+            follower.navAgent.SetDestination(newPos);
+        }
+        
+        
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -86,6 +146,18 @@ namespace Updater {
             Gizmos.DrawLine(B,C);
             Gizmos.DrawLine(C,D);
             Gizmos.DrawLine(D,A);
+            if (Application.isPlaying)
+            {
+                for (int i = 0; i < TAccessor<FollowTarget>.Instance.Modules.Count; ++i)
+                {
+                
+                    FollowTarget follower = TAccessor<FollowTarget>.Instance.Modules[i];
+                
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(follower.navAgent.destination,follower.transform.position);
+                }
+            }
         }
+        
     }
 }

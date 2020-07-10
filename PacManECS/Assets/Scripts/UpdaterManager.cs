@@ -9,6 +9,7 @@ public class UpdaterManager : MonoBehaviour {
         get {
             if (_instance == null) {
                 _instance = new GameObject().AddComponent<UpdaterManager>();
+                _instance.name = "UpdateManager";
             }
             return _instance;
         }

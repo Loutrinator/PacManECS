@@ -3,13 +3,15 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Modules {
-    public class FollowTarget : Module
+    public enum FollowTargetState{Idle,Patrolling,Chasing,RunAway}
+    public class FollowTarget : ITarget
     {
         public Entity target;
         public NavMeshAgent navAgent;
-        public bool isChasing = false;
-        public bool chasingTarget = false;
-        public Vector3 chasingPosition;
+        public MeshRenderer mr;
+        public FollowTargetState state = FollowTargetState.Chasing;
+        public Material color;
+        
         public override void Register()
         {
             TAccessor<FollowTarget>.Instance.Add(this);
@@ -21,6 +23,7 @@ namespace Modules {
             if (navAgent == null)
             {
                 navAgent = GetComponent<NavMeshAgent>();
+                mr = GetComponent<MeshRenderer>();
             }
         }
     }
