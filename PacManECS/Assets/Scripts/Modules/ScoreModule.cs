@@ -1,6 +1,5 @@
 ﻿using Accessor;
 using TMPro;
-using UnityEngine;
 
 namespace Modules {
     public class ScoreModule : Module {
